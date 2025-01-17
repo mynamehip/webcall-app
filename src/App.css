@@ -1,0 +1,28 @@
+@import url(index.css);
+
+.center {
+  @apply flex justify-center items-center;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body ::-webkit-scrollbar {
+  width: 10px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background-color: rgb(213, 213, 213);
+  border-radius: 100rem;
+}
+
+body ::-webkit-scrollbar-track {
+  margin-right: 5px;
+  background-color: transparent;
+}

@@ -1,0 +1,7 @@
+node_modules
+build
+
+
+#enviroment
+src/actions
+src/session
