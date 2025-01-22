@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { initSIP, makeCall } from '../../../session/JsSIP-session';
+import { initSIP, makeCall, rejectCall } from '../../../session/JsSIP-session';
 import { useSelector, useDispatch } from 'react-redux';
 import phoneState from '../../../enum/phoneState';
 
 import PhoneKeyboard from './PhoneKeyboard';
 import PhoneModal from './PhoneModal';
 import CallInfor from './CallInfor';
+import CallPopup from './CallPopup';
 
 import { FaPhone, FaPhoneVolume } from 'react-icons/fa6';
 
 const Phone = () => {
   const [isActive, setActive] = useState(false);
+  const [openPopup, setPopup] = useState(false);
+  const [popUpData, setPopupData] = useState({ name: '', address: '', phone: '', note: '' });
+  const [modalValue, setModalValue] = useState('');
   const state = useSelector((state) => state.phoneState.value);
+  const user = useSelector((state) => state.authState.user);
   const audioRef = useRef();
   const dispatch = useDispatch();
 
@@ -20,6 +25,11 @@ const Phone = () => {
       return;
     }
     makeCall(dispatch, value);
+  };
+
+  const handlePopup = (value) => {
+    setPopupData(value);
+    setPopup(true);
   };
 
   const phoneStyle = (x) => {
@@ -45,7 +55,7 @@ const Phone = () => {
       case phoneState.receiveCall:
       case phoneState.ringing: {
         return (
-          <div className=" flex justify-center items-center gap-[2.5rem] px-[1rem]">
+          <div className=" center gap-[2.5rem] px-[1rem]">
             <div className=" text-[1.75rem] after:absolute after:animate-dots">Ringing</div>
             <div className=" animate-shake rotate-[135deg]">
               <FaPhone />
@@ -55,7 +65,7 @@ const Phone = () => {
       }
       case phoneState.calling: {
         return (
-          <div className=" flex justify-center items-center gap-[2.5rem] px-[1rem]">
+          <div className=" center gap-[2.5rem] px-[1rem]">
             <div className=" text-[1.75rem] after:absolute after:animate-dots">Calling</div>
             <div className=" rotate-[270deg]">
               <FaPhoneVolume />
@@ -66,7 +76,7 @@ const Phone = () => {
       default: {
         return (
           <div
-            className={`w-[3.5rem] h-[3.5rem] rotate-[135deg] flex justify-center items-center rounded-full 
+            className={`w-[3.5rem] h-[3.5rem] rotate-[135deg] center rounded-full 
               text-[2rem] transition-all duration-300
               ${
                 isActive
@@ -82,21 +92,24 @@ const Phone = () => {
   };
 
   useEffect(() => {
-    const ua = initSIP(dispatch, audioRef);
+    const ua = initSIP(dispatch, audioRef, handlePopup, user, setModalValue);
 
     return () => {
       ua.stop();
       console.log('SIPPhone disconnected');
     };
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
-    <div className=" flex flex-row-reverse gap-[2rem] justify-center items-center relative">
+    <div className=" center flex-row-reverse gap-[2rem] relative">
+      {openPopup ? (
+        <CallPopup header={'Thông tin nguoi goi'} data={popUpData} onClose={setPopup}></CallPopup>
+      ) : null}
       <audio ref={audioRef} autoPlay></audio>
       <div
         className={` ${phoneStyle(
           state
-        )} text-[2rem] rounded-full transition-all duration-300 flex justify-center items-center`}>
+        )} text-[2rem] rounded-full transition-all duration-300 center`}>
         {phoneICon(state)}
       </div>
       <div
@@ -109,9 +122,18 @@ const Phone = () => {
         className={`absolute transition-transform duration-300 origin-[90%_0%] top-[4rem] right-0 ${
           state === phoneState.receiveCall ? 'scale-100' : 'scale-0'
         }`}>
-        <PhoneModal></PhoneModal>
+        <PhoneModal value={modalValue}></PhoneModal>
       </div>
-      <div>{state === phoneState.calling ? <CallInfor></CallInfor> : ''}</div>
+      <div>
+        {state === phoneState.ringing ? (
+          <div
+            onClick={() => rejectCall()}
+            className="h-[3.5rem] w-[3.5rem] text-[2rem] bg-red text-white rounded-full center rotate-[135deg]">
+            <FaPhone />
+          </div>
+        ) : null}
+      </div>
+      <div>{state === phoneState.calling ? <CallInfor></CallInfor> : null}</div>
     </div>
   );
 };

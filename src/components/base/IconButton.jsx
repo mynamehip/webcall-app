@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const IconButton = ({ size, color, bgColor, rotate, children }) => {
   return (
@@ -13,8 +13,7 @@ const IconButton = ({ size, color, bgColor, rotate, children }) => {
       }}
       // Tailwind yêu cầu các lớp CSS phải được xác định cụ thể tại thời điểm biên dịch.
       // => Dùng inline style
-      className="flex justify-center items-center rounded-full hover:cursor-pointer;"
-    >
+      className="center rounded-full hover:cursor-pointer;">
       {children}
     </div>
   );

@@ -34,12 +34,12 @@ const Login = () => {
       <div className=" absolute top-[25%] right-[0] w-[50vw] h-[50vw] bg-primary dark:bg-darkPrimary rounded-full blur-[25rem] z-10"></div>
       <div className=" absolute w-[100vw] h-[100vh] top-0 left-0 z-20 flex">
         <div className=" flex-1 h-[full] xl:block hidden">
-          <div className=" w-full h-full flex justify-center items-center select-none">
+          <div className=" w-full h-full center select-none">
             <img className=" w-[75%] h-[75%] object-contain" src={logo} alt="" />
           </div>
         </div>
         <div className=" flex-1 h-[full]">
-          <div className=" w-full h-full flex justify-center items-center">
+          <div className=" w-full h-full center">
             <div className=" w-[75%] h-[75%] shadow-2xl border bg-blur border-white backdrop-blur-3xl flex flex-col items-center gap-[2rem] p-[2rem]">
               <div className=" text-[4rem] leading-[4rem] font-bold text-main select-none">
                 LOG<span className=" text-red">IN</span>

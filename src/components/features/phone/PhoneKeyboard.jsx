@@ -58,6 +58,7 @@ const PhoneKeyboard = ({ onCall }) => {
             type="tel"
             pattern="[0-9]*"
             inputMode="numeric"
+            name="input"
             value={value}
             onChange={handleInputChange}
             className={`outline-none bg-blur border border-white shadow-md text-primary font-black w-full h-[5rem] text-[3rem] text-right px-[1rem] rounded-xl }`}
@@ -66,26 +67,26 @@ const PhoneKeyboard = ({ onCall }) => {
         <div className=" flex-1 w-full bg-transparent grid grid-cols-3">
           <div
             onClick={() => setValue('')}
-            className=" flex justify-center items-center text-[2rem] text-white bg-primary rounded-md hover:cursor-pointer shadow-md m-[0.75rem] select-none">
+            className=" center text-[2rem] text-white bg-primary rounded-md hover:cursor-pointer shadow-md m-[0.75rem] select-none">
             C
           </div>
           <div
             onClick={() => handleDelete()}
-            className=" col-start-3 flex justify-center items-center text-[2rem] text-white bg-primary rounded-md hover:cursor-pointer shadow-md m-[0.75rem] select-none">
+            className=" col-start-3 center text-[2rem] text-white bg-primary rounded-md hover:cursor-pointer shadow-md m-[0.75rem] select-none">
             <FaBackspace />
           </div>
           {number.map((item, index) => (
             <div
               onClick={() => handleDial(item)}
               key={index}
-              className=" flex justify-center items-center text-[3rem] bg-blur text-primary rounded-md hover:cursor-pointer hover:shadow-xl hover:text-[3.5rem] hover:font-medium shadow-md m-[0.75rem] select-none">
+              className=" center text-[3rem] bg-blur text-primary rounded-md hover:cursor-pointer hover:shadow-xl hover:text-[3.5rem] hover:font-medium shadow-md m-[0.75rem] select-none">
               {item}
             </div>
           ))}
         </div>
         <div
           onClick={() => onCall(value)}
-          className=" w-full flex justify-center items-center h-[5rem] text-[2.5rem] font-bold select-none bg-primary text-white">
+          className=" w-full center h-[5rem] text-[2.5rem] font-bold select-none bg-primary text-white">
           Gọi
         </div>
       </div>

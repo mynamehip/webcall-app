@@ -17,7 +17,7 @@ const Main = () => {
       <div className=" h-[6rem] shadow-md z-50">
         <NavBar openMenu={handleOpenSideMenu} />
       </div>
-      <div style={{ height: 'calc(100vh - 6rem)' }} className=" flex">
+      <div style={{ height: 'calc(100vh - 6rem)' }} className=" flex z-40">
         <SideMenu isOpen={openSideMenu}></SideMenu>
         <Content isOpen={openSideMenu}></Content>
       </div>

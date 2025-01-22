@@ -22,9 +22,9 @@ const SideMenu = ({ isOpen }) => {
             p-[1rem] m-[1rem] flex items-center rounded-3xl transition-colors duration-300
           `}
           to={item.path}>
-          <div className=" flex justify-center items-center text-[2rem]">{item.icon}</div>
+          <div className=" center text-[2rem]">{item.icon}</div>
           <div
-            className={`text-[1.75rem] pl-[1rem] font-light transition-transform duration-300 origin-left ${
+            className={`text-[1.5rem] pl-[1rem] font-normal transition-transform duration-300 origin-left ${
               isOpen ? ' scale-100' : ' scale-0'
             }`}>
             {item.label}

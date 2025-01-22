@@ -5,3 +5,7 @@ build
 #enviroment
 src/actions
 src/session
+
+package-lock.json
+
+
